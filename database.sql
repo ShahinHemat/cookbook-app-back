@@ -50,9 +50,17 @@ ALTER TABLE users ADD CONSTRAINT unique_user_email UNIQUE (user_name, email);
 -- Adding a column for pictures in the recipes table
 ALTER TABLE recipes ADD COLUMN picture_url BYTEA;
 
+-- Changing name of column in users table 
+ALTER TABLE users RENAME COLUMN user_name TO username;
+
 -- Selecting all relevant information from a specific cookbook
 SELECT r.recipe_name, r.ingredients, r.directions
 FROM recipes r
 JOIN cookbooks c ON c.cookbook_id = r.cookbook_id
 JOIN users u ON u.user_id = c.user_id
-WHERE c.cookbook_name = 'Spanish Fiesta' AND u.user_name = 'Lise';
+WHERE c.cookbook_name = 'Spanish Fiesta' AND u.username = 'Lise';
+
+-- Selecting all cookbooks matched on all users
+SELECT * 
+FROM cookbooks
+JOIN users ON users.user_id = cookbooks.user_id

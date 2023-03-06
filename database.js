@@ -4,13 +4,13 @@ const { Pool } = require('pg')
 // Establishing a connection to my database
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
-    database: 'recipedb',
     password: 'nedvedvedned12',
+    database: 'recipedb',
+    host: 'localhost',
     port: '5432',
-})
+});
 
-// Check if database was connected correctly
+/* // Check if database was connected correctly
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
       console.error('Error executing query', err);
@@ -18,9 +18,9 @@ pool.query('SELECT NOW()', (err, res) => {
       console.log('Successfully connected to database');
     }
     pool.end();
-  });
+  }); */
 
-  // Get a user matched by email
+/*   // Get a user matched by email
   async function getUserByEmail(email) {
     const result = await database.query(`
     SELECT *
@@ -30,12 +30,9 @@ pool.query('SELECT NOW()', (err, res) => {
     
     return result.rows[0];
   }
-
+ */
 
  
 
 
-  module.exports = {
-    getUserByEmail,
-    
-  }
+  module.exports = pool;
