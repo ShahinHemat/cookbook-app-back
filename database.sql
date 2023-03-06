@@ -1,3 +1,5 @@
+
+-- Creating database tables
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
   user_name VARCHAR(255) NOT NULL,
@@ -42,12 +44,15 @@ VALUES ('Gazpacho', 1, '{"tomatoes", "cucumbers", "bell peppers", "garlic", "bre
 INSERT INTO recipes (recipe_name, cookbook_id, ingredients, directions) 
 VALUES ('Tortilla Española', 1, '{"potatoes", "onions", "eggs", "olive oil", "salt", "pepper"}', '{"1. Heat oil in a large skillet over medium heat...", "2. Add potatoes and onions...", "3. Whisk eggs in a bowl and season with salt and pepper...", "4. Add the egg mixture to the skillet...", "5. Cook until set on the bottom...", "6. Flip the tortilla with a plate...", "7. Cook until set on the other side..." }');
 
+-- Adding unique constraints to username and email in users table
+ALTER TABLE users ADD CONSTRAINT unique_user_email UNIQUE (user_name, email);
 
+-- Adding a column for pictures in the recipes table
+ALTER TABLE recipes ADD COLUMN picture_url BYTEA;
+
+-- Selecting all relevant information from a specific cookbook
 SELECT r.recipe_name, r.ingredients, r.directions
 FROM recipes r
 JOIN cookbooks c ON c.cookbook_id = r.cookbook_id
 JOIN users u ON u.user_id = c.user_id
 WHERE c.cookbook_name = 'Spanish Fiesta' AND u.user_name = 'Lise';
-
--- Adding unique constraints to username and email 
-ALTER TABLE users ADD CONSTRAINT unique_user_email UNIQUE (user_name, email);
