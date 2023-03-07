@@ -94,6 +94,21 @@ app.put("/cookbooks/:id", async (req, res) => {
 
 // Delete a cookbook
 
+app.delete("/cookbooks/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteCookbook = await pool.query(
+            "DELETE FROM cookbooks WHERE cookbook_id = $1 ",
+            [id]
+        );
+
+        res.json(`Cookbook with id ${id} was deleted!`);
+
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
 // Get all recipies within a cookbook
 
 // Create a recipe
